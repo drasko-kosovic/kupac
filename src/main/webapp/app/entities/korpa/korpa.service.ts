@@ -35,4 +35,12 @@ export class KorpaService {
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
+
+  reportServiceArtikal(artikal: String | undefined): any {
+    const httpOptions = {
+      responseType: 'arraybuffer' as 'json',
+      // 'responseType'  : 'blob' as 'json'        //This also worked
+    };
+    return this.http.get<any>('http://localhost:8080/report/korpa/' + artikal, httpOptions);
+  }
 }

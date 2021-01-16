@@ -136,4 +136,12 @@ export class KorpaComponent implements OnInit, OnDestroy {
     this.artikal = '';
     this.loadPage();
   }
+
+  reportArtikal(): any {
+    this.korpaService.reportServiceArtikal(this.artikal).subscribe((response: BlobPart) => {
+      const file = new Blob([response], { type: 'application/pdf' });
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL);
+    });
+  }
 }
