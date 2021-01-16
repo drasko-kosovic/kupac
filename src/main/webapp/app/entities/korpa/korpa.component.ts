@@ -24,6 +24,7 @@ export class KorpaComponent implements OnInit, OnDestroy {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
+  artikal: any;
 
   constructor(
     protected korpaService: KorpaService,
@@ -114,5 +115,25 @@ export class KorpaComponent implements OnInit, OnDestroy {
 
   protected onError(): void {
     this.ngbPaginationPage = this.page ?? 1;
+  }
+
+  artikalSearch(page?: number, dontNavigate?: boolean): void {
+    const pageToLoad: number = page || this.page || 1;
+
+    this.korpaService
+      .query({
+        'artikal.in': this.artikal,
+        page: pageToLoad - 1,
+        size: this.itemsPerPage,
+        sort: this.sort(),
+      })
+      .subscribe(
+        (res: HttpResponse<IKorpa[]>) => this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate),
+        () => this.onError()
+      );
+  }
+  prazansearch(): void {
+    this.artikal = '';
+    this.loadPage();
   }
 }
