@@ -1,0 +1,28 @@
+{
+  "fluentMethods": true,
+  "clientRootFolder": "",
+  "relationships": [],
+  "fields": [
+    {
+      "fieldName": "artikal",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cijena",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "ukupno",
+      "fieldType": "Double"
+    }
+  ],
+  "changelogDate": "20210116080325",
+  "dto": "no",
+  "searchEngine": false,
+  "service": "serviceClass",
+  "entityTableName": "viewkorpa",
+  "databaseType": "sql",
+  "readOnly": true,
+  "jpaMetamodelFiltering": true,
+  "pagination": "pagination"
+}

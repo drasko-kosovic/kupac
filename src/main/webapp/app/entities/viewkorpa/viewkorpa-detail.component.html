@@ -1,0 +1,32 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="viewkorpa">
+            <h2><span>Viewkorpa</span> {{ viewkorpa.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Artikal</span></dt>
+                <dd>
+                    <span>{{ viewkorpa.artikal }}</span>
+                </dd>
+                <dt><span>Cijena</span></dt>
+                <dd>
+                    <span>{{ viewkorpa.cijena }}</span>
+                </dd>
+                <dt><span>Ukupno</span></dt>
+                <dd>
+                    <span>{{ viewkorpa.ukupno }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+        </div>
+    </div>
+</div>
