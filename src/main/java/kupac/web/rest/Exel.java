@@ -39,10 +39,10 @@ public class Exel {
     @Autowired
     KorpaRepository KorpaRepository;
 
-    @GetMapping(path = "/exel")
+    @GetMapping(path = "/exel/{artikal}")
     @ResponseBody
 
-    public void getPdfZahtjev(HttpServletResponse response) throws Exception {
+    public void getPdfZahtjev(HttpServletResponse response, @PathVariable String artikal) throws Exception {
 
         Resource resource = context.getResource("classpath:reports/ArtikliExel.jrxml");
 
@@ -51,7 +51,7 @@ public class Exel {
 
         Map<String, Object> params = new HashMap<>();
 
-        List<Korpa> korpa =  KorpaRepository.findAll();
+        List<Korpa> korpa = KorpaRepository.findByArtikal(artikal);
 
         // Data source Set
         JRDataSource dataSource = new JRBeanCollectionDataSource(korpa);

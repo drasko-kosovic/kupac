@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, ParamMap, Router, Data } from '@angular/router';
 import { Subscription, combineLatest } from 'rxjs';
@@ -10,12 +10,14 @@ import { IKorpa } from 'app/shared/model/korpa.model';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { KorpaService } from './korpa.service';
 import { KorpaDeleteDialogComponent } from './korpa-delete-dialog.component';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'jhi-korpa',
   templateUrl: './korpa.component.html',
 })
 export class KorpaComponent implements OnInit, OnDestroy {
+  [x: string]: any;
   korpas?: IKorpa[];
   eventSubscriber?: Subscription;
   totalItems = 0;
@@ -31,7 +33,8 @@ export class KorpaComponent implements OnInit, OnDestroy {
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected eventManager: JhiEventManager,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   loadPage(page?: number, dontNavigate?: boolean): void {
@@ -143,5 +146,11 @@ export class KorpaComponent implements OnInit, OnDestroy {
       const fileURL = URL.createObjectURL(file);
       window.open(fileURL);
     });
+  }
+
+  exelArtikal(): void {
+    // this.korpaService.exelServiceArtikal();
+
+    this.document.location.href = 'http://localhost:8080/report/exel/' + this.artikal;
   }
 }

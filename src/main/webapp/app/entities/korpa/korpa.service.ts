@@ -43,4 +43,7 @@ export class KorpaService {
     };
     return this.http.get<any>('http://localhost:8080/report/korpa/' + artikal, httpOptions);
   }
+  exelServiceArtikal(artikal: String | undefined): any {
+    return this.http.get<any>('http://localhost:8080/report/exel/' + artikal);
+  }
 }
