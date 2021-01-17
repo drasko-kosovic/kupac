@@ -24,4 +24,12 @@ public class ExcelService {
     return in;
   }
 
+  public ByteArrayInputStream loadByArtikal(String artikal) {
+    List<Korpa> korpa = repository.findByArtikal(artikal);
+
+    ByteArrayInputStream in = ExcelHelper.tutorialsToExcel(korpa);
+    return in;
+  }
+
 }
+
