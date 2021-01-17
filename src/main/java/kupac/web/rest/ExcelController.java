@@ -15,7 +15,7 @@ import kupac.service.ExcelService;
 
 
 
-@CrossOrigin("http://localhost:8081")
+@CrossOrigin(origins = ("*"))
 @Controller
 @RequestMapping("/excel")
 public class ExcelController {
@@ -23,9 +23,9 @@ public class ExcelController {
   @Autowired
   ExcelService fileService;
 
-  @GetMapping("/download")
+  @GetMapping(path = "/download")
   public ResponseEntity<Resource> getFile() {
-    String filename = "tutorials.xlsx";
+    String filename = "korpa.xlsx";
     InputStreamResource file = new InputStreamResource(fileService.load());
 
     return ResponseEntity.ok()

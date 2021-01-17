@@ -17,10 +17,10 @@ import kupac.domain.Korpa;
 
 public class ExcelHelper {
   public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-  static String[] HEADERs = { "Id", "Title", "Description" };
-  static String SHEET = "Tutorials";
+  static String[] HEADERs = { "Id", "Artikal", "Cijena" };
+  static String SHEET = "Korpa";
 
-  public static ByteArrayInputStream tutorialsToExcel(List<Korpa> tutorials) {
+  public static ByteArrayInputStream tutorialsToExcel(List<Korpa> korpe) {
 
     try (Workbook workbook = new XSSFWorkbook(); ByteArrayOutputStream out = new ByteArrayOutputStream();) {
       Sheet sheet = workbook.createSheet(SHEET);
@@ -34,12 +34,12 @@ public class ExcelHelper {
       }
 
       int rowIdx = 1;
-      for (Korpa tutorial : tutorials) {
+      for (Korpa korpa : korpe) {
         Row row = sheet.createRow(rowIdx++);
 
-        row.createCell(0).setCellValue(tutorial.getId());
-        row.createCell(1).setCellValue(tutorial.getArtikal());
-        row.createCell(2).setCellValue(tutorial.getCijena());
+        row.createCell(0).setCellValue(korpa.getId());
+        row.createCell(1).setCellValue(korpa.getArtikal());
+        row.createCell(2).setCellValue(korpa.getCijena());
 
       }
 

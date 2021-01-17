@@ -151,6 +151,6 @@ export class KorpaComponent implements OnInit, OnDestroy {
   exelArtikal(): void {
     // this.korpaService.exelServiceArtikal();
 
-    this.document.location.href = 'http://localhost:8080/api/excel/download';
+    this.document.location.href = 'http://localhost:8080/excel/download';
   }
 }

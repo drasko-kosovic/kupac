@@ -37,8 +37,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class KorpaResource {
-    @Autowired
-    ExcelService fileService;
+   
     private final Logger log = LoggerFactory.getLogger(KorpaResource.class);
 
     private static final String ENTITY_NAME = "korpa";
@@ -149,13 +148,5 @@ public class KorpaResource {
     }
 
 
-    @GetMapping("/download")
-  public ResponseEntity<Resource> getFile() {
-    String filename = "tutorials.xlsx";
-    InputStreamResource file = new InputStreamResource(fileService.load());
 
-    return ResponseEntity.ok()
-        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
-        .contentType(MediaType.parseMediaType("application/vnd.ms-excel")).body(file);
-  }
 }

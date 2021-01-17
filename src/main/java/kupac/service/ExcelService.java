@@ -18,9 +18,9 @@ public class ExcelService {
   KorpaRepository repository;
 
   public ByteArrayInputStream load() {
-    List<Korpa> tutorials = repository.findAll();
+    List<Korpa> korpa = repository.findAll();
 
-    ByteArrayInputStream in = ExcelHelper.tutorialsToExcel(tutorials);
+    ByteArrayInputStream in = ExcelHelper.tutorialsToExcel(korpa);
     return in;
   }
 
