@@ -162,17 +162,34 @@ export class KorpaComponent implements OnInit, OnDestroy {
   }
 
   reportArtikal(): any {
-    this.korpaService.reportServiceArtikal(this.artikal).subscribe((response: BlobPart) => {
+    if (this.artikal === undefined) {
+      this.korpaService.reportServiceArtikalAll().subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
+    } else {
+      this.korpaService.reportServiceArtikal(this.artikal).subscribe((response: BlobPart) => {
+        const file = new Blob([response], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
+    }
+  }
+
+  exelArtikal(): void {
+    if (this.artikal === undefined) {
+      this.document.location.href = 'http://localhost:8080/excel/download';
+    } else {
+      this.document.location.href = 'http://localhost:8080/excel/download/artikal/' + this.artikal;
+    }
+  }
+
+  pdfAll(): void {
+    this.korpaService.reportServiceArtikalAll().subscribe((response: BlobPart) => {
       const file = new Blob([response], { type: 'application/pdf' });
       const fileURL = URL.createObjectURL(file);
       window.open(fileURL);
     });
-  }
-
-  exelArtikal(): void {
-    // this.korpaService.exelServiceArtikal();
-
-    // this.document.location.href = 'http://localhost:8080/excel/download';
-    this.document.location.href = 'http://localhost:8080/excel/download/artikal/' + this.artikal;
   }
 }

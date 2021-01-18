@@ -36,6 +36,9 @@
     "otherModules": [],
     "enableTranslation": false,
     "blueprints": [],
-    "lastLiquibaseTimestamp": 1610784205000
+    "lastLiquibaseTimestamp": 1610784205000,
+    "herokuAppName": "agile-meadow-69138",
+    "herokuDeployType": "git",
+    "herokuJavaVersion": "1.8"
   }
 }
