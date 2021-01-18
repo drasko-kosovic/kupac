@@ -18,30 +18,29 @@
             Exel
             </span>
         </button>
-        <button id="jh-create-entity" class="btn btn-info" (click)="window.print()">
+        <button id="jh-create-entity" class="btn btn-info" onclick="window.print()">
             <fa-icon icon="plus"></fa-icon>
-            <span  jhiTranslate="hitneApp.hitne.home.createLabel">
+            <span  jhiTranslate="hitneApp.hitne.home.createLabel ">
             Print
             </span>
         </button>
     </h2>
-    <div class="col">
-        <div class="col-sm-12">
-            <form name="searchForm" class="form-inline">
-                <div class="input-group-novi">
-                    <input type="search" class="form-control" [(ngModel)]="artikal" id="artikal" name="artikal" (keyup)="artikalSearch()" (keyup.enter)="prazansearchArtikal()" placeholder="artikal">
-                    <input type="search" class="form-control" [(ngModel)]="cijena" id="cijena" name="cijena" (keyup)="cijenaSearch()" (keyup.enter)="prazansearchCijena()" placeholder="cijena">
+    <div class="col ">
+        <div class="col-sm-12 ">
+            <form name="searchForm " class="form-inline ">
+                <div class="input-group-novi ">
+                    <input type="search " class="form-control " [(ngModel)]="artikal " id="artikal " name="artikal " (keyup)="artikalSearch() " (keyup.enter)="prazansearchArtikal() " placeholder="artikal ">
+                    <input type="search " class="form-control " [(ngModel)]="cijena " id="cijena " name="cijena " (keyup)="cijenaSearch() " (keyup.enter)="prazansearchCijena() " placeholder="cijena ">
                 </div>
             </form>
-
         </div>
     </div>
     <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
-    <div class="alert alert-warning" id="no-result" *ngIf="korpas?.length === 0">
+    <div class="alert alert-warning " id="no-result " *ngIf="korpas?.length===0 ">
         <span>No korpas found</span>
     </div>
-    <div class="table-responsive" id="entities" *ngIf="korpas && korpas.length > 0">
+    <div class="table-responsive " id="entities " *ngIf="korpas && korpas.length> 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
