@@ -15,6 +15,7 @@ import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'jhi-korpa',
   templateUrl: './korpa.component.html',
+  styleUrls: ['./korpa.component.scss'],
 })
 export class KorpaComponent implements OnInit, OnDestroy {
   [x: string]: any;
