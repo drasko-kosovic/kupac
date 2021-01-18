@@ -27,6 +27,7 @@ export class KorpaComponent implements OnInit, OnDestroy {
   ascending!: boolean;
   ngbPaginationPage = 1;
   artikal: any;
+  cijena: any;
 
   constructor(
     protected korpaService: KorpaService,
@@ -135,9 +136,29 @@ export class KorpaComponent implements OnInit, OnDestroy {
         () => this.onError()
       );
   }
-  prazansearch(): void {
+
+  cijenaSearch(page?: number, dontNavigate?: boolean): void {
+    const pageToLoad: number = page || this.page || 1;
+
+    this.korpaService
+      .query({
+        'cijena.in': this.cijena,
+        page: pageToLoad - 1,
+        size: this.itemsPerPage,
+        sort: this.sort(),
+      })
+      .subscribe(
+        (res: HttpResponse<IKorpa[]>) => this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate),
+        () => this.onError()
+      );
+  }
+  prazansearchArtikal(): void {
     this.artikal = '';
-    this.loadPage();
+    this.cijenaSearch;
+  }
+  prazansearchCijena(): void {
+    this.cijena = '';
+    this.artikalSearch();
   }
 
   reportArtikal(): any {
