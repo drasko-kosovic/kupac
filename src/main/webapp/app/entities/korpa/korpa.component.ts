@@ -163,11 +163,7 @@ export class KorpaComponent implements OnInit, OnDestroy {
 
   reportArtikal(): any {
     if (this.artikal === undefined) {
-      this.korpaService.reportServiceArtikalAll().subscribe((response: BlobPart) => {
-        const file = new Blob([response], { type: 'application/pdf' });
-        const fileURL = URL.createObjectURL(file);
-        window.open(fileURL);
-      });
+      window.open('http://localhost:8080/report/korpa', '_blank');
     } else {
       this.korpaService.reportServiceArtikal(this.artikal).subscribe((response: BlobPart) => {
         const file = new Blob([response], { type: 'application/pdf' });
@@ -183,13 +179,5 @@ export class KorpaComponent implements OnInit, OnDestroy {
     } else {
       this.document.location.href = 'http://localhost:8080/excel/download/artikal/' + this.artikal;
     }
-  }
-
-  pdfAll(): void {
-    this.korpaService.reportServiceArtikalAll().subscribe((response: BlobPart) => {
-      const file = new Blob([response], { type: 'application/pdf' });
-      const fileURL = URL.createObjectURL(file);
-      window.open(fileURL);
-    });
   }
 }
