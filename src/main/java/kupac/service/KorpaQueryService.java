@@ -91,6 +91,9 @@ public class KorpaQueryService extends QueryService<Korpa> {
             if (criteria.getCijena() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getCijena(), Korpa_.cijena));
             }
+            if (criteria.getIzaberi() != null) {
+                specification = specification.and(buildSpecification(criteria.getIzaberi(), Korpa_.izaberi));
+            }
         }
         return specification;
     }

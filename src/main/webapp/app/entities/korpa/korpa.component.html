@@ -1,77 +1,58 @@
 <div>
     <h2 id="page-heading">
+        <span>Korpas</span>
+
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-korpa" [routerLink]="['/korpa/new']">
             <fa-icon icon="plus"></fa-icon>
             <span>
-                Create a new Korpa
-            </span>
-        </button>
-        <button id="jh-create-entity" class="btn btn-warning" (click)="reportArtikal()">
-            <fa-icon icon="plus"></fa-icon>
-            <span  jhiTranslate="hitneApp.hitne.home.createLabel">
-            Report
-            </span>
-        </button>
-        <button id="jh-create-entity" class="btn btn-success" (click)="exelArtikal()">
-            <fa-icon icon="plus"></fa-icon>
-            <span  jhiTranslate="hitneApp.hitne.home.createLabel">
-            Exel
-            </span>
-        </button>
-        <button id="jh-create-entity" class="btn btn-info" onclick="window.print()">
-            <fa-icon icon="plus"></fa-icon>
-            <span  jhiTranslate="hitneApp.hitne.home.createLabel ">
-            Print
+            Create a new Korpa
             </span>
         </button>
     </h2>
-    <div class="col ">
-        <div class="col-sm-12 ">
-            <form name="searchForm " class="form-inline ">
-                <div class="input-group-novi ">
-                    <input type="search " class="form-control " [(ngModel)]="artikal " id="artikal " name="artikal " (keyup)="artikalSearch() " (keyup.enter)="prazansearchArtikal() " placeholder="artikal ">
-                    <input type="search " class="form-control " [(ngModel)]="cijena " id="cijena " name="cijena " (keyup)="cijenaSearch() " (keyup.enter)="prazansearchCijena() " placeholder="cijena ">
-                </div>
-            </form>
-        </div>
-    </div>
+
     <jhi-alert-error></jhi-alert-error>
+
     <jhi-alert></jhi-alert>
-    <div class="alert alert-warning " id="no-result " *ngIf="korpas?.length===0 ">
+
+    <div class="alert alert-warning" id="no-result" *ngIf="korpas?.length === 0">
         <span>No korpas found</span>
     </div>
-    <div class="table-responsive " id="entities " *ngIf="korpas && korpas.length> 0">
-        <table id="korpa" class="table table-striped" aria-describedby="page-heading">
+
+    <div class="table-responsive" id="entities" *ngIf="korpas && korpas.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
-                    <!-- <th scope="col" jhiSortBy="id"><span>ID</span>
-                        <fa-icon icon="sort"></fa-icon>
-                    </th> -->
-                    <th scope="col" jhiSortBy="artikal"><span>Artikal</span>
-                        <fa-icon icon="sort"></fa-icon>
-                    </th>
-                    <th scope="col" jhiSortBy="cijena"><span>Cijena</span>
-                        <fa-icon icon="sort"></fa-icon>
-                    </th>
+                    <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="artikal"><span>Artikal</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="cijena"><span>Cijena</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="izaberi"><span>Izaberi</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let korpa of korpas ;trackBy: trackId">
-                    <!-- <td><a [routerLink]="['/korpa', korpa.id, 'view']">{{ korpa.id }}</a></td> -->
+                    <td><a [routerLink]="['/korpa', korpa.id, 'view']">{{ korpa.id }}</a></td>
                     <td>{{ korpa.artikal }}</td>
                     <td>{{ korpa.cijena }}</td>
+                    <td>{{ korpa.izaberi }}</td>
                     <td class="text-right">
                         <div class="btn-group">
-                            <button type="submit" [routerLink]="['/korpa', korpa.id, 'view']" class="btn btn-info btn-sm">
+                            <button type="submit"
+                                    [routerLink]="['/korpa', korpa.id, 'view']"
+                                    class="btn btn-info btn-sm">
                                 <fa-icon icon="eye"></fa-icon>
                                 <span class="d-none d-md-inline">View</span>
                             </button>
-                            <button type="submit" [routerLink]="['/korpa', korpa.id, 'edit']" class="btn btn-primary btn-sm">
+
+                            <button type="submit"
+                                    [routerLink]="['/korpa', korpa.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
                                 <fa-icon icon="pencil-alt"></fa-icon>
                                 <span class="d-none d-md-inline">Edit</span>
                             </button>
-                            <button type="submit" (click)="delete(korpa)" class="btn btn-danger btn-sm">
+
+                            <button type="submit" (click)="delete(korpa)"
+                                    class="btn btn-danger btn-sm">
                                 <fa-icon icon="times"></fa-icon>
                                 <span class="d-none d-md-inline">Delete</span>
                             </button>
@@ -81,10 +62,12 @@
             </tbody>
         </table>
     </div>
-    <div class="print" *ngIf="korpas && korpas.length > 0">
+
+    <div *ngIf="korpas && korpas.length > 0">
         <div class="row justify-content-center">
             <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
+
         <div class="row justify-content-center">
             <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
         </div>

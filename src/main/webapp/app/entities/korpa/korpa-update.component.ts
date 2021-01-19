@@ -19,6 +19,7 @@ export class KorpaUpdateComponent implements OnInit {
     id: [],
     artikal: [null, [Validators.required]],
     cijena: [null, [Validators.required]],
+    izaberi: [],
   });
 
   constructor(protected korpaService: KorpaService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -34,6 +35,7 @@ export class KorpaUpdateComponent implements OnInit {
       id: korpa.id,
       artikal: korpa.artikal,
       cijena: korpa.cijena,
+      izaberi: korpa.izaberi,
     });
   }
 
@@ -57,6 +59,7 @@ export class KorpaUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       artikal: this.editForm.get(['artikal'])!.value,
       cijena: this.editForm.get(['cijena'])!.value,
+      izaberi: this.editForm.get(['izaberi'])!.value,
     };
   }
 

@@ -4,18 +4,13 @@ import kupac.domain.Korpa;
 import kupac.service.KorpaService;
 import kupac.web.rest.errors.BadRequestAlertException;
 import kupac.service.dto.KorpaCriteria;
-import kupac.service.ExcelService;
 import kupac.service.KorpaQueryService;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,7 +32,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class KorpaResource {
-   
+
     private final Logger log = LoggerFactory.getLogger(KorpaResource.class);
 
     private static final String ENTITY_NAME = "korpa";
@@ -146,7 +141,4 @@ public class KorpaResource {
         korpaService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
     }
-
-
-
 }

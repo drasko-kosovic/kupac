@@ -30,6 +30,8 @@ public class KorpaCriteria implements Serializable, Criteria {
 
     private IntegerFilter cijena;
 
+    private BooleanFilter izaberi;
+
     public KorpaCriteria() {
     }
 
@@ -37,6 +39,7 @@ public class KorpaCriteria implements Serializable, Criteria {
         this.id = other.id == null ? null : other.id.copy();
         this.artikal = other.artikal == null ? null : other.artikal.copy();
         this.cijena = other.cijena == null ? null : other.cijena.copy();
+        this.izaberi = other.izaberi == null ? null : other.izaberi.copy();
     }
 
     @Override
@@ -68,6 +71,14 @@ public class KorpaCriteria implements Serializable, Criteria {
         this.cijena = cijena;
     }
 
+    public BooleanFilter getIzaberi() {
+        return izaberi;
+    }
+
+    public void setIzaberi(BooleanFilter izaberi) {
+        this.izaberi = izaberi;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -81,7 +92,8 @@ public class KorpaCriteria implements Serializable, Criteria {
         return
             Objects.equals(id, that.id) &&
             Objects.equals(artikal, that.artikal) &&
-            Objects.equals(cijena, that.cijena);
+            Objects.equals(cijena, that.cijena) &&
+            Objects.equals(izaberi, that.izaberi);
     }
 
     @Override
@@ -89,7 +101,8 @@ public class KorpaCriteria implements Serializable, Criteria {
         return Objects.hash(
         id,
         artikal,
-        cijena
+        cijena,
+        izaberi
         );
     }
 
@@ -100,6 +113,7 @@ public class KorpaCriteria implements Serializable, Criteria {
                 (id != null ? "id=" + id + ", " : "") +
                 (artikal != null ? "artikal=" + artikal + ", " : "") +
                 (cijena != null ? "cijena=" + cijena + ", " : "") +
+                (izaberi != null ? "izaberi=" + izaberi + ", " : "") +
             "}";
     }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, ParamMap, Router, Data } from '@angular/router';
 import { Subscription, combineLatest } from 'rxjs';
@@ -10,15 +10,12 @@ import { IKorpa } from 'app/shared/model/korpa.model';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { KorpaService } from './korpa.service';
 import { KorpaDeleteDialogComponent } from './korpa-delete-dialog.component';
-import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'jhi-korpa',
   templateUrl: './korpa.component.html',
-  styleUrls: ['./korpa.component.scss'],
 })
 export class KorpaComponent implements OnInit, OnDestroy {
-  [x: string]: any;
   korpas?: IKorpa[];
   eventSubscriber?: Subscription;
   totalItems = 0;
@@ -27,16 +24,13 @@ export class KorpaComponent implements OnInit, OnDestroy {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
-  artikal: any;
-  cijena: any;
 
   constructor(
     protected korpaService: KorpaService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected eventManager: JhiEventManager,
-    protected modalService: NgbModal,
-    @Inject(DOCUMENT) private document: Document
+    protected modalService: NgbModal
   ) {}
 
   loadPage(page?: number, dontNavigate?: boolean): void {
@@ -120,65 +114,5 @@ export class KorpaComponent implements OnInit, OnDestroy {
 
   protected onError(): void {
     this.ngbPaginationPage = this.page ?? 1;
-  }
-
-  artikalSearch(page?: number, dontNavigate?: boolean): void {
-    const pageToLoad: number = page || this.page || 1;
-
-    this.korpaService
-      .query({
-        'artikal.in': this.artikal,
-        page: pageToLoad - 1,
-        size: this.itemsPerPage,
-        sort: this.sort(),
-      })
-      .subscribe(
-        (res: HttpResponse<IKorpa[]>) => this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate),
-        () => this.onError()
-      );
-  }
-
-  cijenaSearch(page?: number, dontNavigate?: boolean): void {
-    const pageToLoad: number = page || this.page || 1;
-
-    this.korpaService
-      .query({
-        'cijena.in': this.cijena,
-        page: pageToLoad - 1,
-        size: this.itemsPerPage,
-        sort: this.sort(),
-      })
-      .subscribe(
-        (res: HttpResponse<IKorpa[]>) => this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate),
-        () => this.onError()
-      );
-  }
-  prazansearchArtikal(): void {
-    this.artikal = '';
-    this.cijenaSearch;
-  }
-  prazansearchCijena(): void {
-    this.cijena = '';
-    this.artikalSearch();
-  }
-
-  reportArtikal(): any {
-    if (this.artikal === undefined) {
-      window.open('http://localhost:8080/report/korpa', '_blank');
-    } else {
-      this.korpaService.reportServiceArtikal(this.artikal).subscribe((response: BlobPart) => {
-        const file = new Blob([response], { type: 'application/pdf' });
-        const fileURL = URL.createObjectURL(file);
-        window.open(fileURL);
-      });
-    }
-  }
-
-  exelArtikal(): void {
-    if (this.artikal === undefined) {
-      this.document.location.href = 'http://localhost:8080/excel/download';
-    } else {
-      this.document.location.href = 'http://localhost:8080/excel/download/artikal/' + this.artikal;
-    }
   }
 }

@@ -12,6 +12,10 @@
       "fieldName": "cijena",
       "fieldType": "Integer",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "izaberi",
+      "fieldType": "Boolean"
     }
   ],
   "changelogDate": "20210116000411",

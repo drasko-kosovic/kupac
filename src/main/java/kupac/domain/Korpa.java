@@ -28,6 +28,9 @@ public class Korpa implements Serializable {
     @Column(name = "cijena", nullable = false)
     private Integer cijena;
 
+    @Column(name = "izaberi")
+    private Boolean izaberi;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -62,6 +65,19 @@ public class Korpa implements Serializable {
     public void setCijena(Integer cijena) {
         this.cijena = cijena;
     }
+
+    public Boolean isIzaberi() {
+        return izaberi;
+    }
+
+    public Korpa izaberi(Boolean izaberi) {
+        this.izaberi = izaberi;
+        return this;
+    }
+
+    public void setIzaberi(Boolean izaberi) {
+        this.izaberi = izaberi;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -87,6 +103,7 @@ public class Korpa implements Serializable {
             "id=" + getId() +
             ", artikal='" + getArtikal() + "'" +
             ", cijena=" + getCijena() +
+            ", izaberi='" + isIzaberi() + "'" +
             "}";
     }
 }

@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(KorpaService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new Korpa(0, 'AAAAAAA', 0);
+      elemDefault = new Korpa(0, 'AAAAAAA', 0, false);
     });
 
     describe('Service methods', () => {
@@ -56,6 +56,7 @@ describe('Service Tests', () => {
           {
             artikal: 'BBBBBB',
             cijena: 1,
+            izaberi: true,
           },
           elemDefault
         );
@@ -74,6 +75,7 @@ describe('Service Tests', () => {
           {
             artikal: 'BBBBBB',
             cijena: 1,
+            izaberi: true,
           },
           elemDefault
         );

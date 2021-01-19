@@ -39,6 +39,9 @@ public class KorpaResourceIT {
     private static final Integer UPDATED_CIJENA = 2;
     private static final Integer SMALLER_CIJENA = 1 - 1;
 
+    private static final Boolean DEFAULT_IZABERI = false;
+    private static final Boolean UPDATED_IZABERI = true;
+
     @Autowired
     private KorpaRepository korpaRepository;
 
@@ -65,7 +68,8 @@ public class KorpaResourceIT {
     public static Korpa createEntity(EntityManager em) {
         Korpa korpa = new Korpa()
             .artikal(DEFAULT_ARTIKAL)
-            .cijena(DEFAULT_CIJENA);
+            .cijena(DEFAULT_CIJENA)
+            .izaberi(DEFAULT_IZABERI);
         return korpa;
     }
     /**
@@ -77,7 +81,8 @@ public class KorpaResourceIT {
     public static Korpa createUpdatedEntity(EntityManager em) {
         Korpa korpa = new Korpa()
             .artikal(UPDATED_ARTIKAL)
-            .cijena(UPDATED_CIJENA);
+            .cijena(UPDATED_CIJENA)
+            .izaberi(UPDATED_IZABERI);
         return korpa;
     }
 
@@ -102,6 +107,7 @@ public class KorpaResourceIT {
         Korpa testKorpa = korpaList.get(korpaList.size() - 1);
         assertThat(testKorpa.getArtikal()).isEqualTo(DEFAULT_ARTIKAL);
         assertThat(testKorpa.getCijena()).isEqualTo(DEFAULT_CIJENA);
+        assertThat(testKorpa.isIzaberi()).isEqualTo(DEFAULT_IZABERI);
     }
 
     @Test
@@ -174,7 +180,8 @@ public class KorpaResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(korpa.getId().intValue())))
             .andExpect(jsonPath("$.[*].artikal").value(hasItem(DEFAULT_ARTIKAL)))
-            .andExpect(jsonPath("$.[*].cijena").value(hasItem(DEFAULT_CIJENA)));
+            .andExpect(jsonPath("$.[*].cijena").value(hasItem(DEFAULT_CIJENA)))
+            .andExpect(jsonPath("$.[*].izaberi").value(hasItem(DEFAULT_IZABERI.booleanValue())));
     }
     
     @Test
@@ -189,7 +196,8 @@ public class KorpaResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(korpa.getId().intValue()))
             .andExpect(jsonPath("$.artikal").value(DEFAULT_ARTIKAL))
-            .andExpect(jsonPath("$.cijena").value(DEFAULT_CIJENA));
+            .andExpect(jsonPath("$.cijena").value(DEFAULT_CIJENA))
+            .andExpect(jsonPath("$.izaberi").value(DEFAULT_IZABERI.booleanValue()));
     }
 
 
@@ -394,6 +402,58 @@ public class KorpaResourceIT {
         defaultKorpaShouldBeFound("cijena.greaterThan=" + SMALLER_CIJENA);
     }
 
+
+    @Test
+    @Transactional
+    public void getAllKorpasByIzaberiIsEqualToSomething() throws Exception {
+        // Initialize the database
+        korpaRepository.saveAndFlush(korpa);
+
+        // Get all the korpaList where izaberi equals to DEFAULT_IZABERI
+        defaultKorpaShouldBeFound("izaberi.equals=" + DEFAULT_IZABERI);
+
+        // Get all the korpaList where izaberi equals to UPDATED_IZABERI
+        defaultKorpaShouldNotBeFound("izaberi.equals=" + UPDATED_IZABERI);
+    }
+
+    @Test
+    @Transactional
+    public void getAllKorpasByIzaberiIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        korpaRepository.saveAndFlush(korpa);
+
+        // Get all the korpaList where izaberi not equals to DEFAULT_IZABERI
+        defaultKorpaShouldNotBeFound("izaberi.notEquals=" + DEFAULT_IZABERI);
+
+        // Get all the korpaList where izaberi not equals to UPDATED_IZABERI
+        defaultKorpaShouldBeFound("izaberi.notEquals=" + UPDATED_IZABERI);
+    }
+
+    @Test
+    @Transactional
+    public void getAllKorpasByIzaberiIsInShouldWork() throws Exception {
+        // Initialize the database
+        korpaRepository.saveAndFlush(korpa);
+
+        // Get all the korpaList where izaberi in DEFAULT_IZABERI or UPDATED_IZABERI
+        defaultKorpaShouldBeFound("izaberi.in=" + DEFAULT_IZABERI + "," + UPDATED_IZABERI);
+
+        // Get all the korpaList where izaberi equals to UPDATED_IZABERI
+        defaultKorpaShouldNotBeFound("izaberi.in=" + UPDATED_IZABERI);
+    }
+
+    @Test
+    @Transactional
+    public void getAllKorpasByIzaberiIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        korpaRepository.saveAndFlush(korpa);
+
+        // Get all the korpaList where izaberi is not null
+        defaultKorpaShouldBeFound("izaberi.specified=true");
+
+        // Get all the korpaList where izaberi is null
+        defaultKorpaShouldNotBeFound("izaberi.specified=false");
+    }
     /**
      * Executes the search, and checks that the default entity is returned.
      */
@@ -403,7 +463,8 @@ public class KorpaResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(korpa.getId().intValue())))
             .andExpect(jsonPath("$.[*].artikal").value(hasItem(DEFAULT_ARTIKAL)))
-            .andExpect(jsonPath("$.[*].cijena").value(hasItem(DEFAULT_CIJENA)));
+            .andExpect(jsonPath("$.[*].cijena").value(hasItem(DEFAULT_CIJENA)))
+            .andExpect(jsonPath("$.[*].izaberi").value(hasItem(DEFAULT_IZABERI.booleanValue())));
 
         // Check, that the count call also returns 1
         restKorpaMockMvc.perform(get("/api/korpas/count?sort=id,desc&" + filter))
@@ -451,7 +512,8 @@ public class KorpaResourceIT {
         em.detach(updatedKorpa);
         updatedKorpa
             .artikal(UPDATED_ARTIKAL)
-            .cijena(UPDATED_CIJENA);
+            .cijena(UPDATED_CIJENA)
+            .izaberi(UPDATED_IZABERI);
 
         restKorpaMockMvc.perform(put("/api/korpas")
             .contentType(MediaType.APPLICATION_JSON)
@@ -464,6 +526,7 @@ public class KorpaResourceIT {
         Korpa testKorpa = korpaList.get(korpaList.size() - 1);
         assertThat(testKorpa.getArtikal()).isEqualTo(UPDATED_ARTIKAL);
         assertThat(testKorpa.getCijena()).isEqualTo(UPDATED_CIJENA);
+        assertThat(testKorpa.isIzaberi()).isEqualTo(UPDATED_IZABERI);
     }
 
     @Test

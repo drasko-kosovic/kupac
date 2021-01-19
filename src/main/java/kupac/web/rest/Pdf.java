@@ -5,7 +5,6 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPrintServiceExporter;
 import net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
@@ -25,7 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @CrossOrigin(origins = ("*"))
 @RestController
 @RequestMapping("/report")
@@ -34,10 +32,8 @@ public class Pdf {
     @Autowired
     ApplicationContext context;
 
-
-
     @Autowired
- KorpaRepository KorpaRepository;
+    KorpaRepository KorpaRepository;
 
     @GetMapping(path = "/korpa/{artikal}")
     @ResponseBody
@@ -51,18 +47,17 @@ public class Pdf {
 
         Map<String, Object> params = new HashMap<>();
 
+        List<Korpa> korpa = KorpaRepository.findByArtikal(artikal);
 
-         List<Korpa> korpa= (List<Korpa>) KorpaRepository.findByArtikal(artikal);
-
-        //Data source Set
+        // Data source Set
         JRDataSource dataSource = new JRBeanCollectionDataSource(korpa);
         params.put("datasource", dataSource);
 
-        //Make jasperPrint
+        // Make jasperPrint
         JasperPrint jasperPrint = JasperFillManager.fillReport(report, params, dataSource);
-        //Media Type
+        // Media Type
         response.setContentType(MediaType.APPLICATION_PDF_VALUE);
-        //Export PDF Stream
+        // Export PDF Stream
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
     }
 
@@ -78,23 +73,18 @@ public class Pdf {
 
         Map<String, Object> params = new HashMap<>();
 
+        List<Korpa> korpa = (List<Korpa>) KorpaRepository.findAll();
 
-         List<Korpa> korpa= (List<Korpa>) KorpaRepository.findAll();
-
-        //Data source Set
+        // Data source Set
         JRDataSource dataSource = new JRBeanCollectionDataSource(korpa);
         params.put("datasource", dataSource);
 
-        //Make jasperPrint
+        // Make jasperPrint
         JasperPrint jasperPrint = JasperFillManager.fillReport(report, params, dataSource);
-        //Media Type
+        // Media Type
         response.setContentType(MediaType.APPLICATION_PDF_VALUE);
-        //Export PDF Stream
+        // Export PDF Stream
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
     }
-
-
-
-
 
 }
