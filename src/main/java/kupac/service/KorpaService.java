@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -50,7 +51,6 @@ public class KorpaService {
         return korpaRepository.findAll(pageable);
     }
 
-
     /**
      * Get one korpa by id.
      *
@@ -72,4 +72,6 @@ public class KorpaService {
         log.debug("Request to delete Korpa : {}", id);
         korpaRepository.deleteById(id);
     }
+
+
 }

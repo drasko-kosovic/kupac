@@ -35,10 +35,10 @@ public class Pdf {
     @Autowired
     KorpaRepository KorpaRepository;
 
-    @GetMapping(path = "/korpa/{artikal}")
+    @GetMapping(path = "/korpa/{cijena}")
     @ResponseBody
 
-    public void getPdfKorpaArtikal(HttpServletResponse response, @PathVariable String artikal) throws Exception {
+    public void getPdfCijena(HttpServletResponse response, @PathVariable Double cijena) throws Exception {
 
         Resource resource = context.getResource("classpath:reports/Artikli.jrxml");
 
@@ -47,7 +47,34 @@ public class Pdf {
 
         Map<String, Object> params = new HashMap<>();
 
-        List<Korpa> korpa = KorpaRepository.findByArtikal(artikal);
+        List<Korpa> korpa = KorpaRepository.findByCijena(cijena);
+
+        // Data source Set
+        JRDataSource dataSource = new JRBeanCollectionDataSource(korpa);
+        params.put("datasource", dataSource);
+
+        // Make jasperPrint
+        JasperPrint jasperPrint = JasperFillManager.fillReport(report, params, dataSource);
+        // Media Type
+        response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+        // Export PDF Stream
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+    }
+
+    @GetMapping(path = "/korpa/{artikal}/{cijena}")
+    @ResponseBody
+
+    public void getPdfArtikalCijena(HttpServletResponse response, @PathVariable String artikal, @PathVariable Double cijena)
+            throws Exception {
+
+        Resource resource = context.getResource("classpath:reports/Artikli.jrxml");
+
+        InputStream inputStream = resource.getInputStream();
+        JasperReport report = JasperCompileManager.compileReport(inputStream);
+
+        Map<String, Object> params = new HashMap<>();
+
+        List<Korpa> korpa = (List<Korpa>) KorpaRepository.findByArikalCijena(artikal, cijena);
 
         // Data source Set
         JRDataSource dataSource = new JRBeanCollectionDataSource(korpa);
@@ -64,7 +91,7 @@ public class Pdf {
     @GetMapping(path = "/korpa")
     @ResponseBody
 
-    public void getPdfKorpaAll(HttpServletResponse response) throws Exception {
+    public void getPdfAll(HttpServletResponse response) throws Exception {
 
         Resource resource = context.getResource("classpath:reports/Artikli.jrxml");
 
@@ -74,6 +101,32 @@ public class Pdf {
         Map<String, Object> params = new HashMap<>();
 
         List<Korpa> korpa = (List<Korpa>) KorpaRepository.findAll();
+
+        // Data source Set
+        JRDataSource dataSource = new JRBeanCollectionDataSource(korpa);
+        params.put("datasource", dataSource);
+
+        // Make jasperPrint
+        JasperPrint jasperPrint = JasperFillManager.fillReport(report, params, dataSource);
+        // Media Type
+        response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+        // Export PDF Stream
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+    }
+
+    @GetMapping(path = "/korpa/{artikal}")
+    @ResponseBody
+
+    public void getPdfKorpaArtikal(HttpServletResponse response, @PathVariable String artikal) throws Exception {
+
+        Resource resource = context.getResource("classpath:reports/Artikli.jrxml");
+
+        InputStream inputStream = resource.getInputStream();
+        JasperReport report = JasperCompileManager.compileReport(inputStream);
+
+        Map<String, Object> params = new HashMap<>();
+
+        List<Korpa> korpa = KorpaRepository.findByArtikal(artikal);
 
         // Data source Set
         JRDataSource dataSource = new JRBeanCollectionDataSource(korpa);
