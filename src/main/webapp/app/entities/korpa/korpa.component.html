@@ -27,7 +27,16 @@
             </span>
         </button>
     </h2>
-
+    <div class="col ">
+        <div class="col-sm-12 ">
+            <form name="searchForm " class="form-inline ">
+                <div class="input-group-novi ">
+                    <input type="search " class="form-control " [(ngModel)]="artikal " id="artikal " name="artikal " (keyup)="artikalSearch() " (keyup.enter)="prazansearchArtikal() " placeholder="artikal ">
+                    <input type="search " class="form-control " [(ngModel)]="cijena " id="cijena " name="cijena " (keyup)="cijenaSearch() " (keyup.enter)="prazansearchCijena() " placeholder="cijena ">
+                </div>
+            </form>
+        </div>
+    </div>
     <jhi-alert-error></jhi-alert-error>
 
     <jhi-alert></jhi-alert>
