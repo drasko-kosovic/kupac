@@ -49,9 +49,9 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
-                    <th scope="col" jhiSortBy="id"><span>ID</span>
+                    <!-- <th scope="col" jhiSortBy="id"><span>ID</span>
                         <fa-icon icon="sort"></fa-icon>
-                    </th>
+                    </th> -->
                     <th scope="col" jhiSortBy="artikal"><span>Artikal</span>
                         <fa-icon icon="sort"></fa-icon>
                     </th>
@@ -66,7 +66,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let korpa of korpas ;trackBy: trackId">
-                    <td><a [routerLink]="['/korpa', korpa.id, 'view']">{{ korpa.id }}</a></td>
+                    <!-- <td><a [routerLink]="['/korpa', korpa.id, 'view']">{{ korpa.id }}</a></td> -->
                     <td>{{ korpa.artikal }}</td>
                     <td>{{ korpa.cijena }}</td>
                     <td>{{ korpa.izaberi }}</td>
