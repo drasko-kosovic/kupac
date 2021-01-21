@@ -3,36 +3,31 @@
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-korpa" [routerLink]="['/korpa/new']">
             <fa-icon icon="plus"></fa-icon>
             <span>
-            Create a new Korpa
+                Create a new Korpa
             </span>
         </button>
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <button id="jh-create-entity" class="btn btn-warning" (click)="createPdf()">
-            <fa-icon icon="plus"></fa-icon>
-            <span  jhiTranslate="hitneApp.hitne.home.createLabel">
-            Report
-            </span>
-        </button>
+                <fa-icon icon="plus"></fa-icon>
+                <span jhiTranslate="hitneApp.hitne.home.createLabel">
+                    Report
+                </span>
+            </button>
             <button id="jh-create-entity" class="btn btn-success" (click)="exelArtikal()">
-            <fa-icon icon="plus"></fa-icon>
-            <span  jhiTranslate="hitneApp.hitne.home.createLabel">
-            Exel
-            </span>
-        </button>
-            <button id="jh-create-entity" class="btn btn-info" onclick="window.print()">
-            <fa-icon icon="plus"></fa-icon>
-            <span  jhiTranslate="hitneApp.hitne.home.createLabel ">
-            Print
-            </span>
-        </button>
+                <fa-icon icon="plus"></fa-icon>
+                <span jhiTranslate="hitneApp.hitne.home.createLabel">
+                    Exel
+                </span>
         </div>
     </h2>
     <div class="col ">
         <div class="col-sm-12 ">
             <form name="searchForm " class="form-inline ">
                 <div class="input-group-novi ">
-                    <input type="search " class="form-control " [(ngModel)]="artikal " id="artikal " name="artikal " (keyup)="artikalSearch() " (keyup.enter)="prazansearchArtikal() " placeholder="artikal ">
-                    <input type="search " class="form-control " [(ngModel)]="cijena " id="cijena " name="cijena " (keyup)="cijenaSearch() " (keyup.enter)="prazansearchCijena() " placeholder="cijena ">
+                    <input type="search " class="form-control " [(ngModel)]="artikal " id="artikal " name="artikal "
+                        (keyup)="artikalSearch() " (keyup.enter)="prazansearchArtikal() " placeholder="artikal ">
+                    <input type="search " class="form-control " [(ngModel)]="cijena " id="cijena " name="cijena "
+                        (keyup)="cijenaSearch() " (keyup.enter)="prazansearchCijena() " placeholder="cijena ">
                 </div>
             </form>
         </div>
@@ -69,30 +64,31 @@
                     <td>{{ korpa.izaberi }}</td>
                     <td class="text-right">
                         <div class="btn-group">
-                            <button type="submit" [routerLink]="['/korpa', korpa.id, 'view']" class="btn btn-info btn-sm">
+                            <button type="submit" [routerLink]="['/korpa', korpa.id, 'view']"
+                                class="btn btn-info btn-sm">
                                 <fa-icon icon="eye"></fa-icon>
                                 <span class="d-none d-md-inline">View</span>
                             </button>
-                            <button type="submit" [routerLink]="['/korpa', korpa.id, 'edit']" class="btn btn-primary btn-sm">
+            <button type="submit" [routerLink]="['/korpa', korpa.id, 'edit']" class="btn btn-primary btn-sm">
                                 <fa-icon icon="pencil-alt"></fa-icon>
                                 <span class="d-none d-md-inline">Edit</span>
                             </button>
-                            <button type="submit" (click)="delete(korpa)" class="btn btn-danger btn-sm">
+            <button type="submit" (click)="delete(korpa)" class="btn btn-danger btn-sm">
                                 <fa-icon icon="times"></fa-icon>
                                 <span class="d-none d-md-inline">Delete</span>
                             </button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
+        </div>
+        </td>
+        </tr>
+        </tbody>
         </table>
+</div>
+<div class="pagnator" *ngIf="korpas && korpas.length > 0">
+    <div class="row justify-content-center">
+        <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
     </div>
-    <div class="pagnator" *ngIf="korpas && korpas.length > 0">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        </div>
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
-        </div>
+    <div class="row justify-content-center">
+        <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
     </div>
+</div>
 </div>

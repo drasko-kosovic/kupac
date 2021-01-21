@@ -20,8 +20,6 @@ import 'jspdf-autotable';
   styleUrls: ['./korpa.component.scss'],
 })
 export class KorpaComponent implements OnInit, OnDestroy {
-  // head = [['Artikal', 'Cijena', 'Izaberi']];
-
   korpas?: IKorpa[];
   eventSubscriber?: Subscription;
   totalItems = 0;
@@ -84,7 +82,6 @@ export class KorpaComponent implements OnInit, OnDestroy {
   }
 
   trackId(index: number, item: IKorpa): number {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     return item.id!;
   }
 
@@ -167,17 +164,17 @@ export class KorpaComponent implements OnInit, OnDestroy {
     window.location.reload();
   }
 
-  reportArtikal(): any {
-    if (this.artikal === undefined) {
-      window.open('http://localhost:8080/report/korpa', '_blank');
-    } else {
-      this.korpaService.reportServiceArtikal(this.artikal).subscribe((response: BlobPart) => {
-        const file = new Blob([response], { type: 'application/pdf' });
-        const fileURL = URL.createObjectURL(file);
-        window.open(fileURL);
-      });
-    }
-  }
+  // reportArtikal(): any {
+  //   if (this.artikal === undefined) {
+  //     window.open('http://localhost:8080/report/korpa', '_blank');
+  //   } else {
+  //     this.korpaService.reportServiceArtikal(this.artikal).subscribe((response: BlobPart) => {
+  //       const file = new Blob([response], { type: 'application/pdf' });
+  //       const fileURL = URL.createObjectURL(file);
+  //       window.open(fileURL);
+  //     });
+  //   }
+  // }
 
   exelArtikal(): void {
     if (this.artikal === undefined) {
@@ -188,24 +185,22 @@ export class KorpaComponent implements OnInit, OnDestroy {
   }
 
   createPdf(): void {
-    const doc = new jspdf();
-
+    const doc = new jspdf('landscape', 'px', 'a4');
     doc.setFontSize(18);
     doc.text('Korpa', 11, 8);
     doc.setFontSize(11);
     doc.setTextColor(100);
 
     (doc as any).autoTable({
-      // head: [[]],
-      body: this.korpas,
+      head: [['ID', 'Artikal', 'Cijena', 'Izaberi']],
 
-      theme: 'plain',
+      theme: 'striped',
+    });
+    (doc as any).autoTable({
+      body: this.korpas,
     });
 
-    // below line for Open PDF document in new tab
     doc.output('dataurlnewwindow');
-
-    // below line for Download PDF document
-    // doc.save('myteamdetail.pdf');
+    doc.autoPrint();
   }
 }
