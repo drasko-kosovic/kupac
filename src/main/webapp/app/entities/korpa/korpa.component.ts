@@ -20,6 +20,8 @@ import 'jspdf-autotable';
   styleUrls: ['./korpa.component.scss'],
 })
 export class KorpaComponent implements OnInit, OnDestroy {
+  // head = [['Artikal', 'Cijena', 'Izaberi']];
+
   korpas?: IKorpa[];
   eventSubscriber?: Subscription;
   totalItems = 0;
@@ -39,6 +41,7 @@ export class KorpaComponent implements OnInit, OnDestroy {
     protected modalService: NgbModal,
     @Inject(DOCUMENT) private document: Document
   ) {}
+
   loadPage(page?: number, dontNavigate?: boolean): void {
     const pageToLoad: number = page || this.page || 1;
 
@@ -156,10 +159,12 @@ export class KorpaComponent implements OnInit, OnDestroy {
   prazansearchArtikal(): void {
     this.artikal = '';
     this.cijenaSearch;
+    window.location.reload();
   }
   prazansearchCijena(): void {
     this.cijena = '';
     this.artikalSearch();
+    window.location.reload();
   }
 
   reportArtikal(): any {
@@ -182,18 +187,18 @@ export class KorpaComponent implements OnInit, OnDestroy {
     }
   }
 
-  // head = [['ID', 'NAME', 'DESIGNATION', 'DEPARTMENT']]
   createPdf(): void {
     const doc = new jspdf();
 
     doc.setFontSize(18);
-    doc.text('My Team Detail', 11, 8);
+    doc.text('Korpa', 11, 8);
     doc.setFontSize(11);
     doc.setTextColor(100);
 
     (doc as any).autoTable({
-      // head: this.head,
+      // head: [[]],
       body: this.korpas,
+
       theme: 'plain',
     });
 
@@ -201,6 +206,6 @@ export class KorpaComponent implements OnInit, OnDestroy {
     doc.output('dataurlnewwindow');
 
     // below line for Download PDF document
-    doc.save('myteamdetail.pdf');
+    // doc.save('myteamdetail.pdf');
   }
 }
