@@ -44,4 +44,14 @@ public class ExcelController {
         .contentType(MediaType.parseMediaType("application/vnd.ms-excel")).body(file);
   }
 
+  @GetMapping(path = "/download/artikal/{cijena}")
+  public ResponseEntity<Resource> getFileByCijena(@PathVariable Double cijena) {
+    String filename = "korpa.xlsx";
+    InputStreamResource file = new InputStreamResource(fileService.loadByCijena(cijena));
+
+    return ResponseEntity.ok()
+        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+        .contentType(MediaType.parseMediaType("application/vnd.ms-excel")).body(file);
+  }
+
 }

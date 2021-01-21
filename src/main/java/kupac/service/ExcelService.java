@@ -31,5 +31,12 @@ public class ExcelService {
     return in;
   }
 
+  public ByteArrayInputStream loadByCijena(Double cijena) {
+    List<Korpa> korpa = repository.findByCijena(cijena);
+
+    ByteArrayInputStream in = ExcelHelper.tutorialsToExcel(korpa);
+    return in;
+  }
+
 }
 

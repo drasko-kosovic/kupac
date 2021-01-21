@@ -54,4 +54,8 @@ export class KorpaService {
   exelServiceArtikal(artikal: String | undefined): any {
     return this.http.get<any>('http://localhost:8080/api/exel/download' + artikal);
   }
+
+  exelServiceCijena(cijena: number | undefined): any {
+    return this.http.get<any>('http://localhost:8080/api/exel/download' + cijena);
+  }
 }

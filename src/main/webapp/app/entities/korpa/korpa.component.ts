@@ -155,26 +155,14 @@ export class KorpaComponent implements OnInit, OnDestroy {
   }
   prazansearchArtikal(): void {
     this.artikal = '';
-    this.cijenaSearch;
-    window.location.reload();
+    this.cijenaSearch();
+    // window.location.reload();
   }
   prazansearchCijena(): void {
     this.cijena = '';
     this.artikalSearch();
-    window.location.reload();
+    // window.location.reload();
   }
-
-  // reportArtikal(): any {
-  //   if (this.artikal === undefined) {
-  //     window.open('http://localhost:8080/report/korpa', '_blank');
-  //   } else {
-  //     this.korpaService.reportServiceArtikal(this.artikal).subscribe((response: BlobPart) => {
-  //       const file = new Blob([response], { type: 'application/pdf' });
-  //       const fileURL = URL.createObjectURL(file);
-  //       window.open(fileURL);
-  //     });
-  //   }
-  // }
 
   exelArtikal(): void {
     if (this.artikal === undefined) {
