@@ -11,6 +11,8 @@ import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { KorpaService } from './korpa.service';
 import { KorpaDeleteDialogComponent } from './korpa-delete-dialog.component';
 import { DOCUMENT } from '@angular/common';
+import jspdf from 'jspdf';
+import 'jspdf-autotable';
 
 @Component({
   selector: 'jhi-korpa',
@@ -178,5 +180,27 @@ export class KorpaComponent implements OnInit, OnDestroy {
     } else {
       this.document.location.href = 'http://localhost:8080/excel/download/artikal/' + this.artikal;
     }
+  }
+
+  // head = [['ID', 'NAME', 'DESIGNATION', 'DEPARTMENT']]
+  createPdf(): void {
+    const doc = new jspdf();
+
+    doc.setFontSize(18);
+    doc.text('My Team Detail', 11, 8);
+    doc.setFontSize(11);
+    doc.setTextColor(100);
+
+    (doc as any).autoTable({
+      // head: this.head,
+      body: this.korpas,
+      theme: 'plain',
+    });
+
+    // below line for Open PDF document in new tab
+    doc.output('dataurlnewwindow');
+
+    // below line for Download PDF document
+    doc.save('myteamdetail.pdf');
   }
 }
