@@ -35,7 +35,7 @@ public class Pdf {
     @Autowired
     KorpaRepository KorpaRepository;
 
-    @GetMapping(path = "/korpa/{cijena}")
+    @GetMapping(path = "/cijena/{cijena}")
     @ResponseBody
 
     public void getPdfCijena(HttpServletResponse response, @PathVariable Double cijena) throws Exception {
@@ -61,6 +61,8 @@ public class Pdf {
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
     }
 
+
+    
     @GetMapping(path = "/korpa/{artikal}/{cijena}")
     @ResponseBody
 
@@ -114,7 +116,7 @@ public class Pdf {
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
     }
 
-    @GetMapping(path = "/korpa/{artikal}")
+    @GetMapping(path = "/artikal/{artikal}")
     @ResponseBody
 
     public void getPdfKorpaArtikal(HttpServletResponse response, @PathVariable String artikal) throws Exception {

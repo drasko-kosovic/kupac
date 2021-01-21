@@ -18,7 +18,7 @@
             <column name="artikal" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="cijena" type="integer">
+            <column name="cijena" type="DECIMAL(6, 2)">
                 <constraints nullable="false" />
             </column>
             <column name="izaberi" type="boolean">

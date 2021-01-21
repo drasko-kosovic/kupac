@@ -1,0 +1,17 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="Drasko" id="insert-data">
+        <insert schemaName="public" tableName="korpa">
+            <column name="id" valueNumeric="1" />
+            <column name="artikal" value="tv" />
+            <column name="cijena" valueNumeric="100" />
+            <column name="izaberi" valueBoolean="false" />
+        </insert>
+        <insert schemaName="public" tableName="korpa">
+            <column name="id" valueNumeric="2" />
+            <column name="artikal" value="sat" />
+            <column name="cijena" valueNumeric="200" />
+            <column name="izaberi" valueBoolean="true" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>
