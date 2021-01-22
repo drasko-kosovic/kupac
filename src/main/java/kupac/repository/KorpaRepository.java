@@ -13,5 +13,5 @@ public interface KorpaRepository extends JpaRepository<Korpa, Long>, JpaSpecific
     @Query(value = "select * from korpa where artikal=:artikal and cijena=:cijena", nativeQuery = true)
     List<Korpa> findByArikalCijena(String artikal, Double cijena);
 
-    List<Korpa> findByCijena(Double cijena);
+    // List<Korpa> findByCijena(Double cijena);
 }
