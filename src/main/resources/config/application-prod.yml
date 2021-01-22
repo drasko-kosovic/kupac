@@ -53,7 +53,7 @@ spring:
     protocol: smtp
     tls: true
     properties.mail.smtp:
-  auth: true
+    auth: true
   starttls.enable: true
   ssl.trust: smtp.gmail.com
 messages:
