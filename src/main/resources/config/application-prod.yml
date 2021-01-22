@@ -44,7 +44,7 @@ spring:
     show-sql: false
   # Replace by 'prod, faker' to add the faker context and have sample data loaded in production
   liquibase:
-    contexts: dev
+    contexts: prod
   mail:
     host: smtp.gmail.com
     port: 25
@@ -53,9 +53,9 @@ spring:
     protocol: smtp
     tls: true
     properties.mail.smtp:
-      auth: true
-      starttls.enable: true
-      ssl.trust: smtp.gmail.com
+  auth: true
+  starttls.enable: true
+  ssl.trust: smtp.gmail.com
 messages:
   cache-duration: PT1S # 1 second, see the ISO 8601 standard
 thymeleaf:
