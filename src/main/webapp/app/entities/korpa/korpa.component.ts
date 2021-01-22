@@ -153,9 +153,15 @@ export class KorpaComponent implements OnInit, OnDestroy {
         () => this.onError()
       );
   }
+  prazanArtikal(): void {
+    this.artikal = '';
+
+    // window.location.reload();
+  }
   prazansearchArtikal(): void {
     this.artikal = '';
     this.cijenaSearch();
+
     // window.location.reload();
   }
   prazansearchCijena(): void {
