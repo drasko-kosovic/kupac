@@ -187,7 +187,7 @@ export class KorpaComponent implements OnInit, OnDestroy {
   }
   exelArtikalCijena(): void {
     // this.document.location.href = 'http://localhost:8080/api/artikalcijena?artikal=' + this.artikal+'& cijena='+ this.cijena;
-    this.document.location.href = 'http://localhost:8080/excel/download/artikalcijena?artikal=' + this.artikal + '& cijena=' + this.cijena;
+    this.document.location.href = 'http://localhost:8080/excel/download/artikalcijena?artikal=' + this.artikal + '&cijena=' + this.cijena;
   }
 
   createPdf(): void {
