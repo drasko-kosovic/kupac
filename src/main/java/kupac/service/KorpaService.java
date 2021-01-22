@@ -1,33 +1,26 @@
 package kupac.service;
-
 import kupac.domain.Korpa;
 import kupac.repository.KorpaRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
-
 /**
  * Service Implementation for managing {@link Korpa}.
  */
 @Service
 @Transactional
 public class KorpaService {
-
     private final Logger log = LoggerFactory.getLogger(KorpaService.class);
-
     private final KorpaRepository korpaRepository;
-
     public KorpaService(KorpaRepository korpaRepository) {
         this.korpaRepository = korpaRepository;
     }
-
     /**
      * Save a korpa.
      *
@@ -38,7 +31,6 @@ public class KorpaService {
         log.debug("Request to save Korpa : {}", korpa);
         return korpaRepository.save(korpa);
     }
-
     /**
      * Get all the korpas.
      *
@@ -50,7 +42,6 @@ public class KorpaService {
         log.debug("Request to get all Korpas");
         return korpaRepository.findAll(pageable);
     }
-
     /**
      * Get one korpa by id.
      *
@@ -62,7 +53,6 @@ public class KorpaService {
         log.debug("Request to get Korpa : {}", id);
         return korpaRepository.findById(id);
     }
-
     /**
      * Delete the korpa by id.
      *
@@ -72,6 +62,18 @@ public class KorpaService {
         log.debug("Request to delete Korpa : {}", id);
         korpaRepository.deleteById(id);
     }
+    @Transactional(readOnly = true)
+    public List<Korpa> findByCijena(Integer cijena) {
+        return korpaRepository.findByCijena(cijena);
+    }
 
+    @Transactional(readOnly = true)
+    public List<Korpa> findByArtikal(String artikal) {
+        return korpaRepository.findByArtikal(artikal);
+    }
 
+    @Transactional(readOnly = true)
+    public List<Korpa> findByArtikalCijena(String artikal,Integer cijena) {
+        return korpaRepository.findByArikalCijena(artikal, cijena);
+    }
 }

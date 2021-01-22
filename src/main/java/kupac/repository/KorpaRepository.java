@@ -3,6 +3,8 @@ package kupac.repository;
 import kupac.domain.Korpa;
 import java.util.List;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 @SuppressWarnings("unused")
@@ -10,8 +12,8 @@ import org.springframework.stereotype.Repository;
 public interface KorpaRepository extends JpaRepository<Korpa, Long>, JpaSpecificationExecutor<Korpa> {
     List<Korpa> findByArtikal(String artikal);
 
-    @Query(value = "select * from korpa where artikal=:artikal and cijena=:cijena", nativeQuery = true)
-    List<Korpa> findByArikalCijena(String artikal, Double cijena);
+    @Query("select k from Korpa k where k.artikal=:artikal and k.cijena=:cijena")
+    List<Korpa> findByArikalCijena( @Param("artikal") String artikal,@Param("cijena") Integer cijena );
 
-    // List<Korpa> findByCijena(Double cijena);
+   List<Korpa> findByCijena(Integer cijena);
 }

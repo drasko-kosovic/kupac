@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kupac.service.ExcelService;
-
-
 
 @CrossOrigin(origins = ("*"))
 @Controller
@@ -29,8 +28,7 @@ public class ExcelController {
     String filename = "korpa.xlsx";
     InputStreamResource file = new InputStreamResource(fileService.load());
 
-    return ResponseEntity.ok()
-        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+    return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
         .contentType(MediaType.parseMediaType("application/vnd.ms-excel")).body(file);
   }
 
@@ -39,19 +37,26 @@ public class ExcelController {
     String filename = "korpa.xlsx";
     InputStreamResource file = new InputStreamResource(fileService.loadByArtikal(artikal));
 
-    return ResponseEntity.ok()
-        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+    return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
         .contentType(MediaType.parseMediaType("application/vnd.ms-excel")).body(file);
   }
 
-  // @GetMapping(path = "/download/artikal/{cijena}")
-  // public ResponseEntity<Resource> getFileByCijena(@PathVariable Double cijena) {
-  //   String filename = "korpa.xlsx";
-  //   InputStreamResource file = new InputStreamResource(fileService.loadByCijena(cijena));
+  @GetMapping(path = "/download/cijena/{cijena}")
+  public ResponseEntity<Resource> getFileByCijena(@PathVariable Integer cijena) {
+    String filename = "korpa.xlsx";
+    InputStreamResource file = new InputStreamResource(fileService.loadByCijena(cijena));
 
-  //   return ResponseEntity.ok()
-  //       .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
-  //       .contentType(MediaType.parseMediaType("application/vnd.ms-excel")).body(file);
-  // }
+    return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+        .contentType(MediaType.parseMediaType("application/vnd.ms-excel")).body(file);
+  }
+
+  @GetMapping(path = "/download/artikalcijena")
+  public ResponseEntity<Resource> getFileByCijena(@RequestParam String artikal, Integer cijena) {
+    String filename = "korpa.xlsx";
+    InputStreamResource file = new InputStreamResource(fileService.loadByArtikalCijena(artikal, cijena));
+
+    return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+        .contentType(MediaType.parseMediaType("application/vnd.ms-excel")).body(file);
+  }
 
 }

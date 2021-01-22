@@ -178,6 +178,18 @@ export class KorpaComponent implements OnInit, OnDestroy {
     }
   }
 
+  exelCijena(): void {
+    if (this.cijena === undefined) {
+      this.document.location.href = 'http://localhost:8080/excel/download';
+    } else {
+      this.document.location.href = 'http://localhost:8080/excel/download/cijena/' + this.cijena;
+    }
+  }
+  exelArtikalCijena(): void {
+    // this.document.location.href = 'http://localhost:8080/api/artikalcijena?artikal=' + this.artikal+'& cijena='+ this.cijena;
+    this.document.location.href = 'http://localhost:8080/excel/download/artikalcijena?artikal=' + this.artikal + '& cijena=' + this.cijena;
+  }
+
   createPdf(): void {
     const doc = new jspdf('landscape', 'px', 'a4');
     doc.setFontSize(18);

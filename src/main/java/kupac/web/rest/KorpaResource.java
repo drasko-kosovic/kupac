@@ -1,6 +1,7 @@
 package kupac.web.rest;
 
 import kupac.domain.Korpa;
+import kupac.repository.KorpaRepository;
 import kupac.service.KorpaService;
 import kupac.web.rest.errors.BadRequestAlertException;
 import kupac.service.dto.KorpaCriteria;
@@ -53,7 +54,9 @@ public class KorpaResource {
      * {@code POST  /korpas} : Create a new korpa.
      *
      * @param korpa the korpa to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new korpa, or with status {@code 400 (Bad Request)} if the korpa has already an ID.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with
+     *         body the new korpa, or with status {@code 400 (Bad Request)} if the
+     *         korpa has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/korpas")
@@ -63,18 +66,20 @@ public class KorpaResource {
             throw new BadRequestAlertException("A new korpa cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Korpa result = korpaService.save(korpa);
-        return ResponseEntity.created(new URI("/api/korpas/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+        return ResponseEntity
+                .created(new URI("/api/korpas/" + result.getId())).headers(HeaderUtil
+                        .createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
      * {@code PUT  /korpas} : Updates an existing korpa.
      *
      * @param korpa the korpa to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated korpa,
-     * or with status {@code 400 (Bad Request)} if the korpa is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the korpa couldn't be updated.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
+     *         the updated korpa, or with status {@code 400 (Bad Request)} if the
+     *         korpa is not valid, or with status
+     *         {@code 500 (Internal Server Error)} if the korpa couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/korpas")
@@ -84,9 +89,9 @@ public class KorpaResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Korpa result = korpaService.save(korpa);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, korpa.getId().toString()))
-            .body(result);
+        return ResponseEntity.ok().headers(
+                HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, korpa.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -94,13 +99,15 @@ public class KorpaResource {
      *
      * @param pageable the pagination information.
      * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of korpas in body.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
+     *         of korpas in body.
      */
     @GetMapping("/korpas")
     public ResponseEntity<List<Korpa>> getAllKorpas(KorpaCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Korpas by criteria: {}", criteria);
         Page<Korpa> page = korpaQueryService.findByCriteria(criteria, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        HttpHeaders headers = PaginationUtil
+                .generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
@@ -108,7 +115,8 @@ public class KorpaResource {
      * {@code GET  /korpas/count} : count all the korpas.
      *
      * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count
+     *         in body.
      */
     @GetMapping("/korpas/count")
     public ResponseEntity<Long> countKorpas(KorpaCriteria criteria) {
@@ -120,7 +128,8 @@ public class KorpaResource {
      * {@code GET  /korpas/:id} : get the "id" korpa.
      *
      * @param id the id of the korpa to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the korpa, or with status {@code 404 (Not Found)}.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
+     *         the korpa, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/korpas/{id}")
     public ResponseEntity<Korpa> getKorpa(@PathVariable Long id) {
@@ -139,6 +148,27 @@ public class KorpaResource {
     public ResponseEntity<Void> deleteKorpa(@PathVariable Long id) {
         log.debug("REST request to delete Korpa : {}", id);
         korpaService.delete(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.noContent()
+                .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
+                .build();
     }
+
+    @GetMapping("/cijena/{cijena}")
+    public ResponseEntity<List<Korpa>> getKorpa(@PathVariable Integer cijena) {
+        log.debug("REST request to get Korpa : {}", cijena);
+        return ResponseEntity.ok().body(korpaService.findByCijena(cijena));
+    }
+
+    @GetMapping("/artikal/{artikal}")
+    public ResponseEntity<List<Korpa>> getKorpa(@PathVariable String artikal) {
+        log.debug("REST request to get Korpa : {}", artikal);
+        return ResponseEntity.ok().body(korpaService.findByArtikal(artikal));
+    }
+
+    @GetMapping("/artikalcijena")
+    public ResponseEntity<List<Korpa>> getKorpaArtikalCijena(@RequestParam String artikal, Integer cijena) {
+        log.debug("REST request to get Korpa : {}", artikal);
+        return ResponseEntity.ok().body(korpaService.findByArtikalCijena(artikal, cijena));
+    }
+
 }

@@ -31,12 +31,19 @@ public class ExcelService {
     return in;
   }
 
-  // public ByteArrayInputStream loadByCijena(Double cijena) {
-  //   List<Korpa> korpa = repository.findByCijena(cijena);
+  public ByteArrayInputStream loadByCijena(Integer cijena) {
+    List<Korpa> korpa = repository.findByCijena(cijena);
 
-  //   ByteArrayInputStream in = ExcelHelper.tutorialsToExcel(korpa);
-  //   return in;
-  // }
+    ByteArrayInputStream in = ExcelHelper.tutorialsToExcel(korpa);
+    return in;
+  }
+
+  public ByteArrayInputStream loadByArtikalCijena(String artikal,Integer cijena) {
+    List<Korpa> korpa = repository.findByArikalCijena(artikal, cijena);
+
+    ByteArrayInputStream in = ExcelHelper.tutorialsToExcel(korpa);
+    return in;
+  }
 
 }
 
