@@ -25,7 +25,7 @@
                     Exel Cijena
                 </span>
             </button>
-            <button id="jh-create-entity" class="btn btn-success" (click)="exelArtikalCijena()">
+            <button id="jh-create-entity" class="btn btn-info" (click)="exelArtikalCijena()">
                 <fa-icon icon="plus"></fa-icon>
                 <span jhiTranslate="hitneApp.hitne.home.createLabel">
                     Exel Artikal Cijena
@@ -37,7 +37,7 @@
         <div class="col-sm-12 ">
             <form name="searchForm " class="form-inline ">
                 <div class="container">
-                    <input type="search " class="form-control " [(ngModel)]="artikal " id="artikal " name="artikal " (keyup)="artikalSearch() " (keyup.enter)="prazansearchArtikal() " placeholder="artikal ">
+                    <input type="search " id="trazi" class="form-control " [(ngModel)]="artikal " id="artikal " name="artikal " (keyup)="artikalSearch() " (keyup.enter)="prazansearchArtikal() " placeholder="artikal ">
                     <input type="search " class="form-control " [(ngModel)]="cijena " id="cijena " name="cijena " (keyup)="cijenaSearch() " (keyup.enter)="prazansearchCijena() " placeholder="cijena ">
                 </div>
             </form>
