@@ -36,7 +36,7 @@
     "otherModules": [],
     "enableTranslation": false,
     "blueprints": [],
-    "lastLiquibaseTimestamp": 1610784205000,
+    "lastLiquibaseTimestamp": 1611696583000,
     "herokuAppName": "blooming-springs-17656",
     "herokuDeployType": "git",
     "herokuJavaVersion": "11"

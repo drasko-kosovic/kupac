@@ -12,6 +12,10 @@ import { RouterModule } from '@angular/router';
         path: 'viewkorpa',
         loadChildren: () => import('./viewkorpa/viewkorpa.module').then(m => m.KupacViewkorpaModule),
       },
+      {
+        path: 'angular',
+        loadChildren: () => import('./angular/angular.module').then(m => m.KupacAngularModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],
