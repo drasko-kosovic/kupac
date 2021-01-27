@@ -156,13 +156,13 @@ export class KorpaComponent implements OnInit, OnDestroy {
   prazanArtikal(): void {
     this.artikal = '';
 
-    // window.location.reload();
+    window.location.reload();
   }
   prazansearchArtikal(): void {
     this.artikal = '';
-    this.cijenaSearch();
 
     // window.location.reload();
+    //  this.cijenaSearch();
   }
   prazansearchCijena(): void {
     this.cijena = '';
@@ -179,12 +179,23 @@ export class KorpaComponent implements OnInit, OnDestroy {
   }
 
   exelCijena(): void {
-    if (this.cijena === undefined) {
-      this.document.location.href = 'http://localhost:8080/excel/download';
-    } else {
-      this.document.location.href = 'http://localhost:8080/excel/download/cijena/' + this.cijena;
+    //   if (this.cijena === undefined) {
+    //     this.document.location.href = 'http://localhost:8080/excel/download';
+    //   } else {
+    //     this.document.location.href = 'http://localhost:8080/excel/download/cijena/' + this.cijena;
+    //   }
+    // }
+    if (this.cijena === undefined && this.artikal !== undefined) {
+      // eslint-disable-next-line no-console
+      console.log('polje cijena je prazno a polje artikal je puno zato dajem samo potrgu za artikl exel');
+    }
+
+    if (this.artikal === undefined && this.cijena !== undefined) {
+      // eslint-disable-next-line no-console
+      console.log('polje cijena je puno a polje artikal je prazno zato dajem samo potrgu za cijenu exel');
     }
   }
+
   exelArtikalCijena(): void {
     // this.document.location.href = 'http://localhost:8080/api/artikalcijena?artikal=' + this.artikal+'& cijena='+ this.cijena;
     this.document.location.href = 'http://localhost:8080/excel/download/artikalcijena?artikal=' + this.artikal + '&cijena=' + this.cijena;

@@ -37,7 +37,9 @@
         <div class="col-sm-12 ">
             <form name="searchForm " class="form-inline ">
                 <div class="container">
-                    <input type="search " id="trazi" class="form-control " [(ngModel)]="artikal " id="artikal " name="artikal " (keyup)="artikalSearch() " (keyup.enter)="prazansearchArtikal() " placeholder="artikal ">
+                    <input type="search " id="trazi" class="form-control " [(ngModel)]="artikal " id="artikal " name="artikal " placeholder="artikal ">
+                    <button class="btn btn-danger" (click)="artikalSearch()">find</button>
+                    <button class="btn btn-info" (click)="prazansearchArtikal()">Brisi</button>
                     <input type="search " class="form-control " [(ngModel)]="cijena " id="cijena " name="cijena " (keyup)="cijenaSearch() " (keyup.enter)="prazansearchCijena() " placeholder="cijena ">
                 </div>
             </form>
@@ -45,10 +47,10 @@
     </div>
     <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
-    <!-- <div class="alert alert-warning" id="no-result" *ngIf="korpas?.length === 0">
+    <!-- <div class="alert alert-warning " id="no-result " *ngIf="korpas?.length===0 ">
         <span>No korpas found</span>
     </div> -->
-    <div class="table-responsive" id="entities" *ngIf="korpas && korpas.length > 0">
+    <div class="table-responsive " id="entities " *ngIf="korpas && korpas.length> 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
