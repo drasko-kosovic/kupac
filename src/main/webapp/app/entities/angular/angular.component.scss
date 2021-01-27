@@ -1,0 +1,14 @@
+.input-div {
+  display: flex;
+  flex-direction: row;
+  margin: 40px;
+  justify-content: center;
+  // background: grey;
+  width: 500px;
+  height: 300px;
+}
+
+.form-control {
+  margin: 30px;
+  align-self: flex-start;
+}
