@@ -155,18 +155,12 @@ export class KorpaComponent implements OnInit, OnDestroy {
   }
   prazanArtikal(): void {
     this.artikal = '';
-
-    window.location.reload();
+    this.loadPage();
   }
-  prazansearchArtikal(): void {
-    this.artikal = '';
 
-    // window.location.reload();
-    //  this.cijenaSearch();
-  }
-  prazansearchCijena(): void {
+  prazanCijena(): void {
     this.cijena = '';
-    this.artikalSearch();
+    this.loadPage();
     // window.location.reload();
   }
 

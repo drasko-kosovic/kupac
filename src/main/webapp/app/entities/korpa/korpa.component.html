@@ -33,18 +33,41 @@
             </button>
         </div>
     </h2>
-    <div class="input-div ">
-        <div class="col-sm-12 ">
-            <form name="searchForm " class="form-inline ">
-                <div class="container">
-                    <input type="search " id="trazi" class="form-control " [(ngModel)]="artikal " id="artikal " name="artikal " placeholder="artikal ">
-                    <button class="btn btn-danger" (click)="artikalSearch()">find</button>
-                    <button class="btn btn-info" (click)="prazansearchArtikal()">Brisi</button>
-                    <input type="search " class="form-control " [(ngModel)]="cijena " id="cijena " name="cijena " (keyup)="cijenaSearch() " (keyup.enter)="prazansearchCijena() " placeholder="cijena ">
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="artikal" id="artikal" name="artikal" placeholder="Query">
+
+                    <button class="input-group-append btn btn-info" (click)="artikalSearch()">
+                        <fa-icon icon="search"></fa-icon>
+                    </button>
+
+                    <button class="input-group-append btn btn-danger" (click)="prazanArtikal()" *ngIf="artikal">
+                        <fa-icon icon="trash-alt"></fa-icon>
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="cijena" id="cijena" name="cijena" placeholder="Query">
+
+                    <button class="input-group-append btn btn-info" (click)="cijenaSearch()">
+                        <fa-icon icon="search"></fa-icon>
+                    </button>
+
+                    <button class="input-group-append btn btn-danger" (click)="prazanCijena()" *ngIf="cijena">
+                        <fa-icon icon="trash-alt"></fa-icon>
+                    </button>
                 </div>
             </form>
         </div>
     </div>
+
     <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
     <!-- <div class="alert alert-warning " id="no-result " *ngIf="korpas?.length===0 ">
