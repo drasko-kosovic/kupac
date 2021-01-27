@@ -92,6 +92,7 @@ export class KorpaComponent implements OnInit, OnDestroy {
   delete(korpa: IKorpa): void {
     const modalRef = this.modalService.open(KorpaDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.korpa = korpa;
+    this.loadPage();
   }
 
   sort(): string[] {
@@ -161,7 +162,6 @@ export class KorpaComponent implements OnInit, OnDestroy {
   prazanCijena(): void {
     this.cijena = '';
     this.loadPage();
-    // window.location.reload();
   }
 
   exelArtikal(): void {
