@@ -174,8 +174,8 @@ export class KorpaComponent implements OnInit, OnDestroy {
     doc.setFontSize(11);
     doc.setTextColor(100);
     (doc as any).autoTable({
-      head: [['ID', 'Artikal', 'Cijena', 'Izaberi']],
-      theme: 'striped',
+      head: [['ID', '  Artikal', 'Cijena   ', 'Izaberi  ']],
+      // body: [this.korpas]
     });
     (doc as any).autoTable({
       body: this.korpas,
