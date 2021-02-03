@@ -12,6 +12,7 @@ type EntityArrayResponseType = HttpResponse<IKorpa[]>;
 @Injectable({ providedIn: 'root' })
 export class KorpaService {
   public resourceUrl = SERVER_API_URL + 'api/korpas';
+  public resourceUrlExel = SERVER_API_URL + 'api/';
 
   constructor(protected http: HttpClient) {}
 

@@ -11,12 +11,14 @@ import { KorpaDeleteDialogComponent } from './korpa-delete-dialog.component';
 import { DOCUMENT } from '@angular/common';
 import jspdf from 'jspdf';
 import 'jspdf-autotable';
+import { SERVER_API_URL } from 'app/app.constants';
 @Component({
   selector: 'jhi-korpa',
   templateUrl: './korpa.component.html',
   styleUrls: ['./korpa.component.scss'],
 })
 export class KorpaComponent implements OnInit, OnDestroy {
+  public resourceUrlExel = SERVER_API_URL + '/api/excel';
   korpas?: IKorpa[];
   eventSubscriber?: Subscription;
   totalItems = 0;
@@ -147,22 +149,22 @@ export class KorpaComponent implements OnInit, OnDestroy {
     if (this.cijena === undefined && this.artikal !== undefined) {
       // eslint-disable-next-line no-console
       console.log('polje cijena je prazno a polje artikal je puno zato dajem samo potrgu za artikl exel');
-      this.document.location.href = 'http://localhost:8080/excel/download/artikal/' + this.artikal;
+      this.document.location.href = this.resourceUrlExel + '/download/artikal/' + this.artikal;
     }
     if (this.artikal === undefined && this.cijena !== undefined) {
       // eslint-disable-next-line no-console
       console.log('polje cijena je puno a polje artikal je prazno zato dajem samo potrgu za cijenu exel');
-      this.document.location.href = 'http://localhost:8080/excel/download/cijena/' + this.cijena;
+      this.document.location.href = this.resourceUrlExel + '/download/cijena/' + this.cijena;
     }
     if (this.artikal !== undefined && this.cijena !== undefined) {
       // eslint-disable-next-line no-console
       console.log('oba polja su puna');
-      this.document.location.href = 'http://localhost:8080/excel/download/artikalcijena?artikal=' + this.artikal + '&cijena=' + this.cijena;
+      this.document.location.href = this.resourceUrlExel + '/download/artikalcijena?artikal=' + this.artikal + '&cijena=' + this.cijena;
     }
     if (this.artikal === undefined && this.cijena === undefined) {
       // eslint-disable-next-line no-console
       console.log('oba polja su puna');
-      this.document.location.href = 'http://localhost:8080/excel/download';
+      this.document.location.href = this.resourceUrlExel + '/download';
     }
   }
   createPdf(): void {

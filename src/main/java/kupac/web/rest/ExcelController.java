@@ -17,13 +17,13 @@ import kupac.service.ExcelService;
 
 @CrossOrigin(origins = ("*"))
 @Controller
-@RequestMapping("/excel")
+@RequestMapping("/api")
 public class ExcelController {
 
   @Autowired
   ExcelService fileService;
 
-  @GetMapping(path = "/download")
+  @GetMapping(path = "/excel/download")
   public ResponseEntity<Resource> getFile() {
     String filename = "korpa.xlsx";
     InputStreamResource file = new InputStreamResource(fileService.load());
@@ -32,7 +32,7 @@ public class ExcelController {
         .contentType(MediaType.parseMediaType("application/vnd.ms-excel")).body(file);
   }
 
-  @GetMapping(path = "/download/artikal/{artikal}")
+  @GetMapping(path = "/excel/download/artikal/{artikal}")
   public ResponseEntity<Resource> getFileByArtikal(@PathVariable String artikal) {
     String filename = "korpa.xlsx";
     InputStreamResource file = new InputStreamResource(fileService.loadByArtikal(artikal));
@@ -41,7 +41,7 @@ public class ExcelController {
         .contentType(MediaType.parseMediaType("application/vnd.ms-excel")).body(file);
   }
 
-  @GetMapping(path = "/download/cijena/{cijena}")
+  @GetMapping(path = "/excel/download/cijena/{cijena}")
   public ResponseEntity<Resource> getFileByCijena(@PathVariable Integer cijena) {
     String filename = "korpa.xlsx";
     InputStreamResource file = new InputStreamResource(fileService.loadByCijena(cijena));
@@ -50,7 +50,7 @@ public class ExcelController {
         .contentType(MediaType.parseMediaType("application/vnd.ms-excel")).body(file);
   }
 
-  @GetMapping(path = "/download/artikalcijena")
+  @GetMapping(path = "/excel/download/artikalcijena")
   public ResponseEntity<Resource> getFileByCijena(@RequestParam String artikal, Integer cijena) {
     String filename = "korpa.xlsx";
     InputStreamResource file = new InputStreamResource(fileService.loadByArtikalCijena(artikal, cijena));
